@@ -7,7 +7,7 @@
 
 package cache;
 
-public interface EvictionPolicy {
+public interface EvictionPolicy<K> {
     void onGet(K key); // update eviction field
     void onPut(K key); // update eviction cache
     void evict(); // evict a key

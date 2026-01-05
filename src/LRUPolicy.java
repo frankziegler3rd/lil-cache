@@ -80,6 +80,17 @@ public class LRUPolicy<K> implements EvictionPolicy<K> {
     }
 
     /**
+     *
+     */
+    public void synchronized onDelete(K key) {
+        if(cache.containsKey(key)) {
+            Node nodeToRemove = cache.get(key);
+            cache.remove(key);
+            remove(nodeToRemove);
+        }
+    }
+
+    /**
      * removes the node to the right of the leftmost node (so long as the list is nonempty)
      */
     public K synchronized evict() {

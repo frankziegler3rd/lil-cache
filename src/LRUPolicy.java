@@ -80,7 +80,7 @@ public class LRUPolicy<K> implements EvictionPolicy<K> {
     }
 
     /**
-     *
+     * remove a key from the LRU cache and the custom LL
      */
     public void synchronized onDelete(K key) {
         if(cache.containsKey(key)) {

@@ -1,5 +1,5 @@
 /**
- * Node for LRU DLL
+ * doubly-linked Node for LRU DLL
  *
  * @author Frank Ziegler
  * @version 1.0.0
@@ -8,17 +8,26 @@
 package cache;
 
 class Node<K> {
-    
+
+    /**
+     * the previous node, the next node, and the key
+     */
     private Node prev;
     private Node next;
     private K key;
 
+    /**
+     * node next/prev pointers are set after instantiation
+     */
     public Node(K key) {
         this.key = key;
         next = null;
         prev = null;
     }
 
+    /**
+     * getters and setters
+     */
     public Node getPrev() { return prev; }
     public void setPrev(Node prev) { this.prev = prev; }
     public Node getNext() { return next; }

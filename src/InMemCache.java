@@ -1,5 +1,6 @@
 /**
- * In-memory cache
+ * in-memory cache
+ * has both TTL eviction (via ScheduledExecutorService) and capacity eviction algorithms
  *
  * @author Frank Ziegler
  * @version 1.0.0
@@ -14,10 +15,10 @@ import java.util.concurrent.ScheduledExecutorService;
 
 public class InMemCache<K, V> implements Cache<K, V> {
 
-    private final ConcurrentHashMap<K, Entry<V>> cache;
-    private final ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
-    private final EvictionPolicy ep;
-    private final int capacity;
+    private final ConcurrentHashMap<K, Entry<V>> cache; // the data store
+    private final ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor(); // the dispatch for TTL
+    private final EvictionPolicy ep; // the capacity evictor
+    private final int capacity; // the capacity
 
     public InMemCache(EvictionPolicy ep, int capacity) {
         this.capacity = capacity;
@@ -26,6 +27,9 @@ public class InMemCache<K, V> implements Cache<K, V> {
         scheduler.scheduleAtFixedRate(this::evictExpiredEntries, 10, 10, TimeUnit.SECONDS);
     }
 
+    /**
+     * retrieve the value associated with the requested key
+     */
     public V get(K key) {
         Entry<V> value = cache.get(key);
         if(value == null) return null;
@@ -33,6 +37,9 @@ public class InMemCache<K, V> implements Cache<K, V> {
         return entry.getValue();
     }
 
+    /**
+     * retrieve the value associated with the requested key, or the default value passed by user
+     */
     public V getOrDefault(K key, V value) {
         if(cache.containsKey(key)) {
             ep.onGet(key);
@@ -41,6 +48,9 @@ public class InMemCache<K, V> implements Cache<K, V> {
         return value;
     }
 
+    /**
+     * store the KV pair in the cache. if the cache is at capacity and the key does not already exist, evict based on the policy.
+     */
     public void put(K key, V value) {
         if(!cache.containsKey(key) && cache.size() >= capacity) {
             K evicted = ep.evict();
@@ -50,6 +60,9 @@ public class InMemCache<K, V> implements Cache<K, V> {
         cache.put(key, new Entry<V>(value));
     }
 
+    /**
+     * delete a KV pair by key.
+     */
     public void delete(K key) {
         if(cache.containsKey(key)) {
             ep.onDelete(key);
@@ -57,6 +70,9 @@ public class InMemCache<K, V> implements Cache<K, V> {
         }
     }
 
+    /**
+     * clear the cache
+     */
     public void deleteAll() {
         for(K key : cache.keySet()) {
             ep.onDelete(key);
@@ -64,8 +80,14 @@ public class InMemCache<K, V> implements Cache<K, V> {
         cache.clear();
     }
 
+    /**
+     * retrieve the size of the cache
+     */
     public int size() { return cache.size(); }
 
+    /**
+     * TTL eviction 
+     */
     public void evictExpiredEntries() {
         for(Map.Entry<K, V> entry : cache.entrySet()) {
             K key = entry.getKey();

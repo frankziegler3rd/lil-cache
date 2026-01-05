@@ -1,5 +1,5 @@
 /**
- * Interface that defines the skeleton for different kinds of eviction policies like LRU, LFU, FIFO, etc.
+ * defines the skeleton for different kinds of eviction policies like LRU, LFU, FIFO, etc.
  *
  * @author Frank Ziegler
  * @version 1.0.0

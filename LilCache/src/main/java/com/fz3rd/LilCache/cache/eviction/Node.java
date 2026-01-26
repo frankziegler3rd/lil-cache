@@ -5,16 +5,16 @@
  * @version 1.0.0
  */
 
-package.com.fz3rd.LilCache.cache.eviction;
+package com.fz3rd.LilCache.cache.eviction;
 
 class Node<K> {
 
     /**
      * the previous node, the next node, and the key
      */
-    private Node prev;
-    private Node next;
-    private K key;
+    Node<K> prev;
+    Node<K> next;
+    K key;
 
     /**
      * node next/prev pointers are set after instantiation
@@ -28,9 +28,9 @@ class Node<K> {
     /**
      * getters and setters
      */
-    public Node getPrev() { return prev; }
+    public Node<K> getPrev() { return prev; }
     public void setPrev(Node prev) { this.prev = prev; }
-    public Node getNext() { return next; }
+    public Node<K> getNext() { return next; }
     public void setNext(Node next) { this.next = next; }
     public K getKey() { return key; }
     public void setKey(K key) { this.key = key; }

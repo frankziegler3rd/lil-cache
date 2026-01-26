@@ -5,6 +5,8 @@
  * @version 1.0.0
  */
 
+package com.fz3rd.LilCache.service;
+
 import org.springframework.stereotype.Service;
 import com.fz3rd.LilCache.cache.Cache;
 import com.fz3rd.LilCache.cache.InMemCache;
@@ -22,7 +24,7 @@ public class CacheService {
     }
 
     public String get(String key) {
-        return cache.get(key) == null ? null : entry.getValue();
+        return cache.get(key);
     }
 
     public void put(String key, String value) {

@@ -5,7 +5,7 @@
  * @version 1.0.0
  */
 
-package.com.fz3rd.LilCache.cache;
+package com.fz3rd.LilCache.cache;
 
 public class Entry<V> {
     

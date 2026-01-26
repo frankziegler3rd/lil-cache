@@ -5,11 +5,11 @@
  * @version 1.0.0
  */
 
-package.com.fz3rd.LilCache.cache.eviction;
+package com.fz3rd.LilCache.cache.eviction;
 
 public interface EvictionPolicy<K> {
     void onGet(K key); // update eviction field
     void onPut(K key); // update eviction cache
     void onDelete(K key); // remove a key
-    void evict(); // evict a key
+    K evict(); // evict a key
 }

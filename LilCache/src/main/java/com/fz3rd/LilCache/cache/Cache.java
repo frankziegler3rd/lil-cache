@@ -5,7 +5,7 @@
  * @version 1.0.0
  */
 
-package.cache;
+package.com.fz3rd.LilCache.cache;
 
 /**
  * cache methods mock a basic K-V store.

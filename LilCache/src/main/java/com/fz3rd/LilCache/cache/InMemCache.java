@@ -6,7 +6,7 @@
  * @version 1.0.0
  */
 
-package cache;
+package.com.fz3rd.LilCache.cache;
 
 import cache.Entry;
 import java.util.concurrent.ConcurrentHashMap;

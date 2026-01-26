@@ -10,17 +10,16 @@ package com.fz3rd.LilCache.service;
 import org.springframework.stereotype.Service;
 import com.fz3rd.LilCache.cache.Cache;
 import com.fz3rd.LilCache.cache.InMemCache;
-import com.fz3rd.LilCache.cache.Entry;
 import com.fz3rd.LilCache.cache.eviction.EvictionPolicy;
 import com.fz3rd.LilCache.cache.eviction.LRUPolicy;
 
 @Service
 public class CacheService {
     
-    private final Cache<String, Entry<String>> cache;
+    private final Cache<String, String> cache;
 
-    public CacheService(EvictionPolicy<String> ep, int capacity) {
-        cache = new InMemCache<>(ep, capacity);
+    public CacheService(Cache<String, String> cache) {
+        this.cache = cache;
     }
 
     public String get(String key) {

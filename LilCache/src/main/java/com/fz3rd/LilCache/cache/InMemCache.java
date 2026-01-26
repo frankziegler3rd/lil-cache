@@ -20,10 +20,10 @@ public class InMemCache<K, V> implements Cache<K, V> {
 
     private final ConcurrentHashMap<K, Entry<V>> cache; // the data store
     private final ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor(); // the dispatch for TTL
-    private final EvictionPolicy ep; // the capacity evictor
+    private final EvictionPolicy<K> ep; // the capacity evictor
     private final int capacity; // the capacity
 
-    public InMemCache(EvictionPolicy ep, int capacity) {
+    public InMemCache(EvictionPolicy<K> ep, int capacity) {
         this.capacity = capacity;
         cache = new ConcurrentHashMap<>(capacity);
         this.ep = ep;

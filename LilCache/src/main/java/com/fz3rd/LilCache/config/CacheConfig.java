@@ -22,8 +22,11 @@ public class CacheConfig {
         return new LRUPolicy<String>();
     }
 
+    /**
+     * Cache configured with capacity 100 and expiration of 1 hour
+     */
     @Bean
     public Cache<String, String> cache(EvictionPolicy<String> ep) {
-        return new InMemCache<>(ep, 100);
+        return new InMemCache<>(ep, 100, 3600000);
     }
 }

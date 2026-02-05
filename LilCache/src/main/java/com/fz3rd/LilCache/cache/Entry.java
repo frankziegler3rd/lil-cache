@@ -12,11 +12,9 @@ public class Entry<V> {
     private V value;
     private long expiration;
 
-    public Entry(V value) {
+    public Entry(V value, long lifespan) {
         this.value = value;
-        // current time + 12 hours
-        // maybe should not have a hard coded lifespan but ill come back to it
-        expiration = System.currentTimeMillis()+43200000; 
+        expiration = System.currentTimeMillis() + lifespan; 
     }
 
     // getters and setters

@@ -25,7 +25,7 @@ class InMemCacheTest {
     Cache<String, String> cache;
 
     @BeforeEach void setup() {
-        cache = new InMemCache<>(policy, 5, 5000); // 5 entries, 5 seconds per entry
+        cache = new InMemCache<>(policy, 5, 5000, 5000); // 5 entries, 5 seconds per entry
     }
 
     @Test void basicPutAndGet() {

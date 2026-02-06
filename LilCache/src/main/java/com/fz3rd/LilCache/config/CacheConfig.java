@@ -23,10 +23,10 @@ public class CacheConfig {
     }
 
     /**
-     * Cache configured with capacity 100 and expiration of 1 hour
+     * Cache configured with capacity 100 and expiration of 1 hour evicted at a rate of 1 hour
      */
     @Bean
     public Cache<String, String> cache(EvictionPolicy<String> ep) {
-        return new InMemCache<>(ep, 100, 3600000);
+        return new InMemCache<>(ep, 100, 3600000, 3600000);
     }
 }

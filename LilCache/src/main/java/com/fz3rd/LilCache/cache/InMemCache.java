@@ -21,15 +21,20 @@ public class InMemCache<K, V> implements Cache<K, V> {
     private final ConcurrentHashMap<K, Entry<V>> cache; // the data store
     private final ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor(); // the dispatch for TTL
     private final EvictionPolicy<K> ep; // the capacity evictor
-    private final int capacity; // the capacity
+    private final int capacity;
     private final long entryLifespan;
 
-    public InMemCache(EvictionPolicy<K> ep, int capacity, long entryLifespan) {
+    public InMemCache(EvictionPolicy<K> ep, int capacity, long entryLifespan, long ttlScanInterval) {
         this.capacity = capacity;
         cache = new ConcurrentHashMap<>(capacity);
         this.ep = ep;
         this.entryLifespan = entryLifespan;
-        scheduler.scheduleAtFixedRate(this::evictExpiredEntries, 10, 10, TimeUnit.SECONDS);
+        scheduler.scheduleAtFixedRate(
+                this::evictExpiredEntries, 
+                ttlScanInterval, 
+                ttlScanInterval, 
+                TimeUnit.SECONDS
+        );
     }
 
     /**

@@ -33,7 +33,7 @@ public class InMemCache<K, V> implements Cache<K, V> {
                 this::evictExpiredEntries, 
                 ttlScanInterval, 
                 ttlScanInterval, 
-                TimeUnit.SECONDS
+                TimeUnit.MILLISECONDS
         );
     }
 

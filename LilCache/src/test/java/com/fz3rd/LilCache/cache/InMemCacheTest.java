@@ -17,6 +17,8 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.mockito.Mock;
 import static org.mockito.Mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
+import java.lang.Thread;
+import java.lang.InterruptedException;
 
 @ExtendWith(MockitoExtension.class)
 class InMemCacheTest {
@@ -25,7 +27,7 @@ class InMemCacheTest {
     Cache<String, String> cache;
 
     @BeforeEach void setup() {
-        cache = new InMemCache<>(policy, 5, 5000, 5000); // 5 entries, 5 seconds per entry
+        cache = new InMemCache<>(policy, 5, 500, 500); // 5 entries, 500 milliseconds per entry
     }
 
     @Test void basicPutAndGet() {
@@ -78,4 +80,13 @@ class InMemCacheTest {
     }
 
     // TODO: TTL eviction test here
+    @Test void testTTL() throws InterruptedException {
+        cache.put("a", "doesntMatter");
+        cache.put("b", "doesntMatter");
+        
+        Thread.sleep(1500);
+
+        assertNull(cache.get("a"));
+        assertNull(cache.get("b"));
+    }
 }

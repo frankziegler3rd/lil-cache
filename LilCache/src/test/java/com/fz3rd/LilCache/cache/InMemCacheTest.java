@@ -79,7 +79,6 @@ class InMemCacheTest {
         assertEquals(cache.size(), 0);
     }
 
-    // TODO: TTL eviction test here
     @Test void testTTL() throws InterruptedException {
         cache.put("a", "doesntMatter");
         cache.put("b", "doesntMatter");

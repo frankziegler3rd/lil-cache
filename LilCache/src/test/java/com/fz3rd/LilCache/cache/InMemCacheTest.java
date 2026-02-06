@@ -18,9 +18,6 @@ import org.mockito.Mock;
 import static org.mockito.Mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-/**
- * TODO: Add mock policy logic where needed
- */
 @ExtendWith(MockitoExtension.class)
 class InMemCacheTest {
 
